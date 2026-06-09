@@ -1,20 +1,23 @@
 package com.example.myProject.controller;
 
-import com.example.myProject.model.Student;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student")
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/students")
+@CrossOrigin("*")
 public class StudentController {
 
-    @GetMapping
-    public Student getStudent() {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-        return new Student(1L, "Kanishk", "kanishk20042018@gmail.com");
+    @GetMapping("/count")
+    public Integer countStudents() {
+        String sql = "SELECT COUNT(*) FROM students";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 }
