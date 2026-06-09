@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.myProject.service.studentService;
+
 
 @RestController
 @RequestMapping("/students")
@@ -13,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private studentService service;
 
-    @GetMapping("/count")
-    public Integer countStudents() {
-        String sql = "SELECT COUNT(*) FROM students";
-        return jdbcTemplate.queryForObject(sql, Integer.class);
+    @GetMapping("/message")
+    public String getMessage() {
+        return service.getStudentInfo();
     }
 }
