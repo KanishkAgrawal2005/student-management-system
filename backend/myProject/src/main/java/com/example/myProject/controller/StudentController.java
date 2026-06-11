@@ -1,24 +1,29 @@
 package com.example.myProject.controller;
 
+import com.example.myProject.model.Student;
+import com.example.myProject.service.StudentService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.myProject.service.studentService;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
 @CrossOrigin("*")
 public class StudentController {
+    private final StudentService service;
 
-    @Autowired
-    private studentService service;
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
 
-    @GetMapping("/message")
-    public String getMessage() {
-        return service.getStudentInfo();
+    @GetMapping
+    public List<Student> getStudents() {
+        return service.getAllStudents();
+    }
+
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+    return service.saveStudent(student);
     }
 }

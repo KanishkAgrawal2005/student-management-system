@@ -1,24 +1,31 @@
 package com.example.myProject.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "students")
 public class Student {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String course;
 
     public Student() {
     }
 
-    public Student(Long id, String name, String course) {
+    public Student(Integer id, String name, String course) {
         this.id = id;
         this.name = name;
         this.course = course;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
